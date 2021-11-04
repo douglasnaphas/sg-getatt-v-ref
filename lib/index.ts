@@ -24,6 +24,9 @@ export class Stack extends cdk.Stack {
       value: bucket.bucketName,
     });
     const cfnSg = sg.node.defaultChild as ec2.CfnSecurityGroup;
-    new cdk.CfnOutput(this, "SGRef", {value: cfnSg.getAtt("GroupId").toString()})
+    new cdk.CfnOutput(this, "SGRef", {
+      value: cfnSg.getAtt("GroupId").toString(),
+    });
+    
   }
 }

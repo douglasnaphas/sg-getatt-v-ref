@@ -24,7 +24,7 @@ jobs:
           AWS_DEFAULT_REGION: "us-east-1"
         run: |
           STACKNAME=$(npx @cdk-turnkey/stackname@1.2.0 --suffix app)
-          npx cdk destroy --force ${STACKNAME}
+          npx cdk destroy --force --app 'npx ts-node bin/index.ts' ${STACKNAME}
       
       - name: Identify prod account and region
         env:
@@ -42,4 +42,4 @@ jobs:
           AWS_DEFAULT_REGION: "us-east-1"
         run: |
           STACKNAME=$(npx @cdk-turnkey/stackname@1.2.0 --suffix app)
-          npx cdk destroy --force ${STACKNAME}
+          npx cdk destroy --force --app 'npx ts-node bin/index.ts' ${STACKNAME}

@@ -27,6 +27,7 @@ export class Stack extends cdk.Stack {
     new cdk.CfnOutput(this, "SGGetAtt", {
       value: cfnSg.getAtt("GroupId").toString(),
     });
-
+    new cdk.CfnOutput(this, "SGRefDirect", { value: cfnSg.ref });
+    new cdk.CfnOutput(this, "SGRefFn", { value: cdk.Fn.ref(cfnSg.logicalId) });
   }
 }

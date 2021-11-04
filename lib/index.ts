@@ -1,4 +1,5 @@
 import * as cdk from "@aws-cdk/core";
+import * as ec2 from "@aws-cdk/aws-ec2";
 import * as s3 from "@aws-cdk/aws-s3";
 import { RemovalPolicy } from "@aws-cdk/core";
 
@@ -17,8 +18,12 @@ export class Stack extends cdk.Stack {
       ...defaultBucketProps,
       versioned: true,
     });
+    const vpc = new ec2.Vpc(this, "VPC");
+    const sg = new ec2.SecurityGroup(this, "SG", { vpc });
     new cdk.CfnOutput(this, "BucketName", {
       value: bucket.bucketName,
     });
+    const cfnSg = sg.node.defaultChild as ec2.CfnSecurityGroup;
+    new cdk.CfnOutput(this, "SGRef", {value: cfnSg.getAtt("GroupId").toString()})
   }
 }
